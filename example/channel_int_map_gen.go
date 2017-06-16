@@ -43,33 +43,41 @@ func (m *ChannelIntMap) Delete(key Channel) {
 
 // Get retrieves a key from the map
 func (m *ChannelIntMap) Get(key Channel) int {
+
 	m.Lock()
 	v := m.M[key]
 	m.Unlock()
+
 	return v
 }
 
 // Len returns the length of the map
 func (m *ChannelIntMap) Len() int {
+
 	m.Lock()
 	n := len(m.M)
 	m.Unlock()
+
 	return n
 }
 
 // GetEx retrieves a key from the map
 // and whether it exists
 func (m *ChannelIntMap) GetEx(key Channel) (int, bool) {
+
 	m.Lock()
 	v, exists := m.M[key]
 	m.Unlock()
+
 	return v, exists
 }
 
 // Exists returns if a key exists
 func (m *ChannelIntMap) Exists(key Channel) bool {
+
 	m.Lock()
 	_, exists := m.M[key]
 	m.Unlock()
+
 	return exists
 }

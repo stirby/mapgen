@@ -55,6 +55,8 @@ func main() {
 		typName       = kingpin.Flag("tname", "name of generated type").Short('t').String()
 		fileName      = kingpin.Flag("fname", "file name of generated type").Short('f').String()
 		keyValueTypes = kingpin.Arg("keyvalue types", "Key and value types, e.g `string/int`").Required().String()
+
+		useRwMutex = kingpin.Flag("rwmu", "Use RWMutex").Default("false").Bool()
 	)
 	kingpin.Parse()
 	var err error
@@ -110,11 +112,12 @@ func main() {
 
 	failErr(errors.Wrap(
 		mapgen.Generate(mapgen.Params{
-			Exported: unicode.IsUpper([]rune(*typName)[0]),
-			Package:  *pkgName,
-			MapName:  *typName,
-			KeyType:  key,
-			ValType:  value,
+			Exported:   unicode.IsUpper([]rune(*typName)[0]),
+			UseRWMutex: *useRwMutex,
+			Package:    *pkgName,
+			MapName:    *typName,
+			KeyType:    key,
+			ValType:    value,
 		}, outputFi),
 		"failed to generate",
 	),

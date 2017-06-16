@@ -9,7 +9,11 @@ package {{ .Package }}
 // {{.MapName}} is a generated thread safe map
 // with key {{.KeyType}} and value {{.ValType}}
 type {{.MapName}} struct {
+    {{ if .UseRWMutex }}
+    sync.RWMutex
+    {{ else }}
     sync.Mutex
+    {{ end }}
     
     // M contains the underlying map.
     // Goroutines which access M directly should hold
@@ -41,33 +45,59 @@ func (m *{{.MapName}}) Delete(key {{.KeyType}}) {
 
 // Get retrieves a key from the map
 func (m *{{.MapName}}) Get(key {{.KeyType}}) ({{.ValType}}) {
+    {{ if .UseRWMutex }}
+    m.RLock()
+    v := m.M[key]
+    m.RUnlock()
+    {{ else }}
     m.Lock()
     v := m.M[key]
     m.Unlock()
+    {{ end }}
+
     return v
 }
 
 // Len returns the length of the map
 func (m *{{.MapName}}) Len() int {
+    {{ if .UseRWMutex }}
+    m.RLock()
+    n := len(m.M)
+    m.RUnlock()
+    {{ else }}
     m.Lock()
     n := len(m.M)
     m.Unlock()
+    {{ end }}
+
     return n
 }
 
 // GetEx retrieves a key from the map
 // and whether it exists
 func (m *{{.MapName}}) GetEx(key {{.KeyType}}) ({{.ValType}}, bool) {
+    {{ if .UseRWMutex }}
+    m.RLock()
+    v, exists := m.M[key]
+    m.RUnlock()
+    {{ else }}
     m.Lock()
     v, exists := m.M[key]
     m.Unlock()
+    {{ end }}
     return v, exists
 }
 
 // Exists returns if a key exists
 func (m *{{.MapName}}) Exists(key {{.KeyType}}) bool {
+    {{ if .UseRWMutex }}
+    m.RLock()
+    _, exists := m.M[key]
+    m.RUnlock()
+    {{ else }}
     m.Lock()
     _, exists := m.M[key]
     m.Unlock()
+    {{ end }}
     return exists
 }
