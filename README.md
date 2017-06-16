@@ -35,7 +35,7 @@ Wrote string_buffer_map_gen.go
 Help:
 
 ```
-usage: mapgen [<flags>] <keyvalue type>
+usage: mapgen [<flags>] <keyvalue types>
 
 Flags:
       --help         Show context-sensitive help (also try --help-long and --help-man).
@@ -45,5 +45,5 @@ Flags:
   -f, --fname=FNAME  file name of generated type
 
 Args:
-  <keyvalue type>  Key value type, e.g `string/int`
+  <keyvalue types>  Key and value types, e.g `string/int`
 ```
