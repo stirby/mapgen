@@ -9,72 +9,65 @@ package {{ .Package }}
 // {{.MapName}} is a generated thread safe map
 // with key {{.KeyType}} and value {{.ValType}}
 type {{.MapName}} struct {
-    mu sync.Mutex
-    m map[{{.KeyType}}]{{.ValType}}
+    sync.Mutex
+    
+    // M contains the underlying map.
+    // Goroutines which access M directly should hold
+    // the mutex.
+    M map[{{.KeyType}}]{{.ValType}}
 }  
 
 // {{if .Exported}}New{{ else }}new{{end}}{{title .MapName}} returns an instantiated thread safe map
 // with key {{.KeyType}} and value {{.ValType}}
 func {{if .Exported}}New{{ else }}new{{end}}{{ title .MapName }}() *{{.MapName}} {
     return &{{.MapName}}{
-        m: make(map[{{.KeyType}}]{{.ValType}}),
+        M: make(map[{{.KeyType}}]{{.ValType}}),
     }
-}
-
-// Lock locks the map and returns it.
-func (m *{{.MapName}}) Lock() map[{{.KeyType}}]{{.ValType}} {
-    m.mu.Lock()
-    return m.m
-}
-
-// Unlock unlocks the map
-func (m *{{.MapName}}) Unlock() {
-    m.mu.Unlock()
 }
 
 // Set sets a key on the map
 func (m *{{.MapName}}) Set(key {{.KeyType}}, val {{.ValType}}) {
-    m.mu.Lock()
-    m.m[key] = val
-    m.mu.Unlock()
+    m.Lock()
+    m.M[key] = val
+    m.Unlock()
 }
 
 // Delete removes a key from the map
 func (m *{{.MapName}}) Delete(key {{.KeyType}}) {
-    m.mu.Lock()
-    delete(m.m, key)
-    m.mu.Unlock()
+    m.Lock()
+    delete(m.M, key)
+    m.Unlock()
 }
 
 // Get retrieves a key from the map
 func (m *{{.MapName}}) Get(key {{.KeyType}}) ({{.ValType}}) {
-    m.mu.Lock()
-    v := m.m[key]
-    m.mu.Unlock()
+    m.Lock()
+    v := m.M[key]
+    m.Unlock()
     return v
 }
 
 // Len returns the length of the map
 func (m *{{.MapName}}) Len() int {
-    m.mu.Lock()
-    n := len(m.m)
-    m.mu.Unlock()
+    m.Lock()
+    n := len(m.M)
+    m.Unlock()
     return n
 }
 
 // GetEx retrieves a key from the map
 // and whether it exists
 func (m *{{.MapName}}) GetEx(key {{.KeyType}}) ({{.ValType}}, bool) {
-    m.mu.Lock()
-    v, exists := m.m[key]
-    m.mu.Unlock()
+    m.Lock()
+    v, exists := m.M[key]
+    m.Unlock()
     return v, exists
 }
 
 // Exists returns if a key exists
 func (m *{{.MapName}}) Exists(key {{.KeyType}}) bool {
-    m.mu.Lock()
-    _, exists := m.m[key]
-    m.mu.Unlock()
+    m.Lock()
+    _, exists := m.M[key]
+    m.Unlock()
     return exists
 }
