@@ -10,6 +10,10 @@ Features:
 
 Generated example located in `examples/`
 
+## Install
+
+`go get -u github.com/ammario/mapgen/cmd/mapgen`
+
 ## Usage
 
 
