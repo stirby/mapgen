@@ -2,7 +2,8 @@
 
 A tool which generates thread safe maps for Go.
 
-Features: 
+Features:
+
     - Supports any key/value pair supported by Go's native maps
     - Allows complex operations via `Lock()` and `Unlock()`
     - Generated code conforms to `golint` and `gofmt`
