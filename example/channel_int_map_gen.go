@@ -56,6 +56,14 @@ func (m *ChannelIntMap) Get(key Channel) int {
 	return v
 }
 
+// Len returns the length of the map
+func (m *ChannelIntMap) Len() int {
+	m.mu.Lock()
+	n := len(m.m)
+	m.mu.Unlock()
+	return n
+}
+
 // GetEx retrieves a key from the map
 // and whether it exists
 func (m *ChannelIntMap) GetEx(key Channel) (int, bool) {

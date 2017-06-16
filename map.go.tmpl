@@ -13,9 +13,9 @@ type {{.MapName}} struct {
     m map[{{.KeyType}}]{{.ValType}}
 }  
 
-// New{{.MapName}} returns an instantiated thread safe map
+// {{if .Exported}}New{{ else }}new{{end}}{{title .MapName}} returns an instantiated thread safe map
 // with key {{.KeyType}} and value {{.ValType}}
-func New{{.MapName}}() *{{.MapName}} {
+func {{if .Exported}}New{{ else }}new{{end}}{{ title .MapName }}() *{{.MapName}} {
     return &{{.MapName}}{
         m: make(map[{{.KeyType}}]{{.ValType}}),
     }
@@ -52,6 +52,14 @@ func (m *{{.MapName}}) Get(key {{.KeyType}}) ({{.ValType}}) {
     v := m.m[key]
     m.mu.Unlock()
     return v
+}
+
+// Len returns the length of the map
+func (m *{{.MapName}}) Len() int {
+    m.mu.Lock()
+    n := len(m.m)
+    m.mu.Unlock()
+    return n
 }
 
 // GetEx retrieves a key from the map

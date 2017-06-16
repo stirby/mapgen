@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"unicode"
 
 	"strings"
 
@@ -109,10 +110,11 @@ func main() {
 
 	failErr(errors.Wrap(
 		mapgen.Generate(mapgen.Params{
-			Package: *pkgName,
-			MapName: *typName,
-			KeyType: key,
-			ValType: value,
+			Exported: unicode.IsUpper([]rune(*typName)[0]),
+			Package:  *pkgName,
+			MapName:  *typName,
+			KeyType:  key,
+			ValType:  value,
 		}, outputFi),
 		"failed to generate",
 	),
