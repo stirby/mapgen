@@ -43,7 +43,7 @@ Flags:
   -p, --pkg="."      package name
   -v, --verbose      highly descriptive output
   -t, --tname=TNAME  name of generated type
-  -f, --fname=FNAME  file name of generated type
+  -f, --file=FILE    output file name
       --rwmu         Use RWMutex
 
 Args:
