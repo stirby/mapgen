@@ -4,10 +4,11 @@ A tool which generates thread safe maps for Go.
 
 Features:
 
-    - Supports any key/value pair supported by Go's native maps
-    - Allows complex operations via `Lock()` and `Unlock()`
-    - Generated code conforms to `golint` and `gofmt`
-    - Allows custom types
+- Supports any key/value pair supported by Go's native maps
+- Allows complex operations via `Lock()` and `Unlock()`
+- Generated code conforms to `golint` and `gofmt`
+- Allows custom types
+- Sensible default file name and map name
 
 Generated example located in `examples/`
 
