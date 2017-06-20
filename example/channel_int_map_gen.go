@@ -29,6 +29,20 @@ func (m *ChannelIntMap) Set(key Channel, val int) {
 	m.Unlock()
 }
 
+// SetIfNotExist sets a key on the map if it doesn't exist.
+// It returns the value which is set.
+func (m *ChannelIntMap) SetIfNotExist(key Channel, val int) int {
+	m.Lock()
+	v, ok := m.M[key]
+	if !ok {
+		m.M[key] = val
+	} else {
+		val = v
+	}
+	m.Unlock()
+	return val
+}
+
 // Delete removes a key from the map
 func (m *ChannelIntMap) Delete(key Channel) {
 	m.Lock()

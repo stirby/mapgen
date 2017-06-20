@@ -31,6 +31,20 @@ func (m *{{.MapName}}) Set(key {{.KeyType}}, val {{.ValType}}) {
     m.Unlock()
 }
 
+// SetIfNotExist sets a key on the map if it doesn't exist.
+// It returns the value which is set.
+func (m *{{.MapName}}) SetIfNotExist(key {{.KeyType}}, val {{.ValType}}) {{.ValType}} {
+    m.Lock()
+    v, ok := m.M[key]
+    if !ok {
+        m.M[key] = val
+    } else {
+        val = v
+    }
+    m.Unlock()
+    return val
+}
+
 // Delete removes a key from the map
 func (m *{{.MapName}}) Delete(key {{.KeyType}}) {
     m.Lock()
