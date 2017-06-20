@@ -52,9 +52,9 @@ func main() {
 	var (
 		pkgName       = kingpin.Flag("pkg", "package name").Short('p').Default(".").String()
 		verbose       = kingpin.Flag("verbose", "highly descriptive output").Short('v').Bool()
-		typName       = kingpin.Flag("tname", "name of generated type").Short('t').String()
 		fileName      = kingpin.Flag("file", "output file name").Short('f').String()
 		keyValueTypes = kingpin.Arg("keyvalue types", "Key and value types, e.g `string/int`").Required().String()
+		typName       = kingpin.Arg("tname", "name of generated type").String()
 
 		useRwMutex = kingpin.Flag("rwmu", "Use RWMutex").Default("false").Bool()
 	)
