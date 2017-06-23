@@ -36,16 +36,16 @@ Wrote string_buffer_map_gen.go
 Help:
 
 ```
-usage: mapgen [<flags>] <keyvalue types>
+usage: mapgen [<flags>] <keyvalue types> [<tname>]
 
 Flags:
-      --help         Show context-sensitive help (also try --help-long and --help-man).
-  -p, --pkg="."      package name
-  -v, --verbose      highly descriptive output
-  -t, --tname=TNAME  name of generated type
-  -f, --file=FILE    output file name
-      --rwmu         Use RWMutex
+      --help       Show context-sensitive help (also try --help-long and --help-man).
+  -p, --pkg="."    package name
+  -v, --verbose    highly descriptive output
+  -f, --file=FILE  output file name
+      --rwmu       Use RWMutex
 
 Args:
   <keyvalue types>  Key and value types, e.g `string/int`
+  [<tname>]         name of generated type
 ```
