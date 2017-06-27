@@ -24,6 +24,13 @@ func {{if .Exported}}New{{ else }}new{{end}}{{ title .MapName }}() *{{.MapName}}
     }
 }
 
+// Open allows a closure to safely operate on the map
+func (m *{{.MapName}}) Open(f func()) {
+    m.Lock()
+    defer m.Unlock()
+    f()
+}
+
 // Set sets a key on the map
 func (m *{{.MapName}}) Set(key {{.KeyType}}, val {{.ValType}}) {
     m.Lock()

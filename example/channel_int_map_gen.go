@@ -22,6 +22,13 @@ func NewChannelIntMap() *ChannelIntMap {
 	}
 }
 
+// Open allows a closure to safely operate on the map
+func (m *ChannelIntMap) Open(f func()) {
+	m.Lock()
+	defer m.Unlock()
+	f()
+}
+
 // Set sets a key on the map
 func (m *ChannelIntMap) Set(key Channel, val int) {
 	m.Lock()
