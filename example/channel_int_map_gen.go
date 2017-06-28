@@ -29,6 +29,21 @@ func (m *ChannelIntMap) Open(f func()) {
 	f()
 }
 
+// Copy generates a copy of the map.
+func (m *ChannelIntMap) Copy() (c map[Channel]int) {
+	c = make(map[Channel]int, len(m.M))
+
+	m.Lock()
+
+	for k, v := range m.M {
+		c[k] = v
+	}
+
+	m.Unlock()
+
+	return c
+}
+
 // Set sets a key on the map
 func (m *ChannelIntMap) Set(key Channel, val int) {
 	m.Lock()

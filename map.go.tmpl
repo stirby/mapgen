@@ -31,6 +31,25 @@ func (m *{{.MapName}}) Open(f func()) {
     f()
 }
 
+// Copy generates a copy of the map.
+func (m *{{.MapName}}) Copy() (c map[{{.KeyType}}]{{.ValType}}) {
+	c = make(map[{{.KeyType}}]{{.ValType}}, len(m.M))
+    {{ if .UseRWMutex }}
+    m.RLock()
+    {{ else }}
+    m.Lock()
+    {{ end }}
+	for k, v := range m.M {
+		c[k] = v
+	}
+    {{ if .UseRWMutex }}
+    m.RUnlock()
+    {{ else }}
+    m.Unlock()
+    {{ end }}
+	return c
+}
+
 // Set sets a key on the map
 func (m *{{.MapName}}) Set(key {{.KeyType}}, val {{.ValType}}) {
     m.Lock()
