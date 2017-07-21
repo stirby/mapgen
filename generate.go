@@ -4,8 +4,6 @@ import "io"
 import "text/template"
 import "strings"
 
-//go:generate go-bindata -pkg mapgen map.go.tmpl
-
 var mapTmpl = template.Must(template.New("map").Funcs(template.FuncMap{
 	"title": strings.Title,
 }).Parse(string(MustAsset("map.go.tmpl"))))
