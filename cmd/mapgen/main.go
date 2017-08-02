@@ -13,8 +13,8 @@ import (
 	"os/exec"
 
 	"github.com/alecthomas/kingpin"
-	"github.com/ammario/mapgen"
-	"github.com/ammario/micropkg/strutil"
+	"github.com/s-kirby/mapgen"
+	"github.com/s-kirby/micropkg/strutil"
 	"github.com/fatih/color"
 	"github.com/pkg/errors"
 )

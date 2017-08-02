@@ -15,7 +15,7 @@ Generated example located in `examples/`
 
 ## Install
 
-`go get -u github.com/ammario/mapgen/cmd/mapgen`
+`go get -u github.com/s-kirby/mapgen/cmd/mapgen`
 
 ## Usage
 
