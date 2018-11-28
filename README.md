@@ -1,3 +1,5 @@
+**Just write your own map wrappers**
+
 # mapgen
 
 A tool which generates thread safe maps for Go.
