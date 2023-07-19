@@ -1,4 +1,7 @@
-**Just write your own map wrappers**
+> **Note**
+> As of Go 1.18, just use generics.
+
+---
 
 # mapgen
 
